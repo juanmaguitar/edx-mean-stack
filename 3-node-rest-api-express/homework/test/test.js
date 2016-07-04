@@ -5,7 +5,7 @@ var status = require('http-status');
 var superagent = require('superagent');
 var wagner = require('wagner-core');
 
-var URL_ROOT = 'http://localhost:3000';
+var URL_ROOT = 'http://localhost:3000/api/v1';
 var PRODUCT_ID = '000000000000000000000001';
 
 describe('Part 3 Assessment Tests', function() {
@@ -22,13 +22,15 @@ describe('Part 3 Assessment Tests', function() {
   var User;
 
   before(function() {
+
     app = express();
 
     // Bootstrap server
-    models = require('../app/models')(wagner);
     dependencies = require('../app/dependencies')(wagner);
+    models = require('../app/models')(wagner);
 
     // Make models available in tests
+
     var deps = wagner.invoke(function(Category, fx, Product, Stripe, User, Config) {
       return {
         Category: Category,
@@ -54,7 +56,6 @@ describe('Part 3 Assessment Tests', function() {
         next();
       });
     });
-
     app.use(require('../app/api')(wagner));
 
     server = app.listen(3000);
@@ -166,9 +167,11 @@ describe('Part 3 Assessment Tests', function() {
             }
           }).
           end(function(error, res) {
+
             if (error) {
               return done(error);
             }
+
 
             assert.equal(res.status, 200);
             var result;
@@ -213,8 +216,8 @@ describe('Part 3 Assessment Tests', function() {
   });
 
   it('gets the correct Facebook auth keys', function(done) {
-    wagner.invoke(require('./auth'), { app: app });
 
+    wagner.invoke(require('../app/auth'), { app: app });
     var config = require('../app/config.json');
     assert.equal(require('passport')._strategies['facebook']._clientSecret,
       config.facebookClientSecret);

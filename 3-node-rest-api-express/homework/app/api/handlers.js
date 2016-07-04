@@ -1,4 +1,5 @@
 function handleOne(property, res, error, result) {
+
   if (error) {
     return res.
       status(status.INTERNAL_SERVER_ERROR).

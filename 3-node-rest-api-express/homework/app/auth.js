@@ -8,8 +8,8 @@ function setupAuth(Config, User, app) {
   passport.serializeUser( (user, done) =>  done(null, user._id) );
   passport.deserializeUser( (id, done) => User.findOne({ _id : id }).exec(done) );
 
-  const clientID = Config.FACEBOOK_CLIENT_ID;
-  const clientSecret = Config.FACEBOOK_CLIENT_SECRET;
+  const clientID = Config.facebookClientId;
+  const clientSecret = Config.facebookClientSecret;
   const callbackURL = 'http://localhost:3000/auth/facebook/callback';
   const profileFields = ['id', 'emails', 'name'];
 

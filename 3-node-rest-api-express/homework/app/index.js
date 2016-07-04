@@ -1,8 +1,8 @@
 var express = require('express');
 var wagner = require('wagner-core');
 
-require('./models')(wagner);
 require('./dependencies')(wagner);
+require('./models')(wagner);
 
 var app = express();
 

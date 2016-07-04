@@ -2,6 +2,9 @@ var Category = require('./category');
 var mongoose = require('mongoose');
 
 module.exports = function(db, fx) {
+
+  console.log("@begin products....")
+
   var productSchema = {
     name: { type: String, required: true },
     // Pictures must start with "http://"
@@ -56,5 +59,6 @@ module.exports = function(db, fx) {
   schema.set('toObject', { virtuals: true });
   schema.set('toJSON', { virtuals: true });
 
+  console.log("@end products....")
   return db.model('Product', schema, 'products');
 };

@@ -29,8 +29,8 @@
     "start": "babel-node --presets es2015 app",
     "nodemon": "nodemon --exec npm start",
     "nodemon-test": "nodemon --exec npm test",
-    "test": "mocha --compilers js:babel-register test",
-    "check-credentials": "mocha part1.js",
+    "test": "mocha --compilers js:babel-register test/test",
+    "check-credentials": "mocha test/part1.js",
     "watch": "gulp watch"
   }
 }

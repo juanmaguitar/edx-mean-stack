@@ -10,7 +10,8 @@ function getUser (status, req, res) {
       json({ error: 'Not logged in' });
   }
 
-  req.user.populate( query, handleOne.bind(null, 'user', res));
+	res.json({ user: req.user });
+  //req.user.populate( query, handleOne.bind(null, 'user', res));
 
 }
 
