@@ -3,25 +3,23 @@ var express = require('express');
 var status = require('http-status');
 var _ = require('underscore');
 
-var createSetUserCartFn = require('./createSetUserCartFn');
-var createCheckoutCartFn = require('./createCheckoutCartFn');
+var setUserCart = require('./setUserCart');
+var checkoutCart = require('./checkoutCart');
 var getUser = require('./getUser');
 
 module.exports = function(wagner) {
 
   var api = express.Router();
-  var setUserCart = wagner.invoke( function(User) {
-  	return createSetUserCartFn(wagner, User);
- 	});
-  var checkoutCart = wagner.invoke( function(User, Stripe) {
-		return createCheckoutCartFn(wagner, User, Stripe)
-	});
 
   api.use(bodyparser.json());
 
-  api.put('/me/cart', setUserCart );
   api.get('/me', getUser );
-  api.post('/checkout', checkoutCart );
+  api.put('/me/cart', wagner.invoke( function(User) {
+    return setUserCart.bind(null, User);
+  }) );
+  api.post('/checkout', wagner.invoke( function(User, Stripe) {
+    return checkoutCart.bind(null, User, Stripe);
+  }) );
 
   return api;
 

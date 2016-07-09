@@ -2,7 +2,6 @@ var Category = require('./category');
 var mongoose = require('mongoose');
 
 module.exports = function(db, fx) {
-
   var productSchema = {
     name: { type: String, required: true },
     // Pictures must start with "http://"
