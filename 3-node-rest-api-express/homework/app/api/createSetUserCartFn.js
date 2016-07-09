@@ -1,8 +1,9 @@
 var handleOne = require('./handlers').handleOne;
+var status = require('http-status');
 
-function setUserCart (wagner, status, req, res) {
+function createSetUserCartFn (wagner, User) {
 
-  return wagner.invoke( function(User) {
+  return function(req, res) {
 
   	try {
         var cart = req.body.data.cart;
@@ -12,11 +13,12 @@ function setUserCart (wagner, status, req, res) {
           json({ error: 'No cart specified!' });
       }
 
+    console.log (cart);
   	req.user.data.cart = cart;
     req.user.save( handleOne.bind(null, 'user', res) )
 
-	})
+	}
 
 }
 
-module.exports = setUserCart;
+module.exports = createSetUserCartFn;

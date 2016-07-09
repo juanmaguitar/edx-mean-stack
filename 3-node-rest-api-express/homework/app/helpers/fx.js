@@ -3,7 +3,10 @@ var _ = require('underscore');
 
 // TODO: Make this function depend on the Config service from `dependencies.js`
 // and use Config.openExchangeRatesKey instead of an environment variable.
-module.exports = function(wagner) {
+module.exports = function(Config) {
+
+  var url = 'http://openexchangerates.org/api/latest.json?app_id=' +
+    Config.openExchangeRatesKey;
 
   var rates = {
     USD: 1,
@@ -11,12 +14,7 @@ module.exports = function(wagner) {
     GBP: 1.5
   };
 
-  var ping = wagner.invoke( function(Config) {
-
-    var url = 'http://openexchangerates.org/api/latest.json?app_id=' +
-    Config.openExchangeRatesKey;
-
-    return function(callback) {
+  var ping = function(callback) {
       superagent.get(url, function(error, res) {
         // If error happens, ignore it because we'll try again in an hour
         if (error) {
@@ -41,8 +39,7 @@ module.exports = function(wagner) {
           }
         }
       });
-    }
-  });
+    };
 
   setInterval(ping, 60 * 60 * 1000); // Repeat every hour
 

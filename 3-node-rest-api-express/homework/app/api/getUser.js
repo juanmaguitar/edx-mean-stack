@@ -1,6 +1,7 @@
 var handleOne = require('./handlers').handleOne;
+var status = require('http-status');
 
-function getUser (status, req, res) {
+function getUser (req, res) {
 
 	var query = { path: 'data.cart.product', model: 'Product' };
 

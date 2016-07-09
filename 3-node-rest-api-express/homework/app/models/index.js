@@ -26,6 +26,5 @@ module.exports = function(wagner) {
 
 
   wagner.factory('Product', require('../schemas/product') );
-
   return models;
 };
