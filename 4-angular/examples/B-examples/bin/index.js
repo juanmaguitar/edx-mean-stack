@@ -1,11 +1,12 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 exports.AddToCartController = function($scope, $http, $user, $timeout) {
   $scope.addToCart = function(product) {
-    var obj = { product: product._id, quantity: 1 };
+
+    var obj = { product: product, quantity: 1 };
     $user.user.data.cart.push(obj);
 
     $http.
-      put('/api/v1/me/cart', $user.user).
+      put('/api/v1/me/cart', { data: { cart: $user.user.data.cart } }).
       success(function(data) {
         $user.loadUser();
         $scope.success = true;
@@ -73,12 +74,13 @@ exports.CheckoutController = function($scope, $user, $http) {
     $http.
       put('/api/v1/me/cart', $user.user).
       success(function(data) {
-        $scoped.updated = true;
+        $scope.updated = true;
       });
   };
 
   // For checkout
-  Stripe.setPublishableKey('pk_test_KVC0AphhVxm52zdsM4WoBstU');
+  Stripe.setPublishableKey('pk_test_HQ9g8Srh4U1JvdJ6qRXNPVwm');
+
 
   $scope.stripeToken = {
     number: '4242424242424242',

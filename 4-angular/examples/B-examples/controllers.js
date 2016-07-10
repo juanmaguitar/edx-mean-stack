@@ -1,6 +1,7 @@
 exports.AddToCartController = function($scope, $http, $user, $timeout) {
   $scope.addToCart = function(product) {
-    var obj = { product: product._id, quantity: 1 };
+
+    var obj = { product: product, quantity: 1 };
     $user.user.data.cart.push(obj);
 
     $http.
@@ -77,7 +78,8 @@ exports.CheckoutController = function($scope, $user, $http) {
   };
 
   // For checkout
-  Stripe.setPublishableKey('pk_test_KVC0AphhVxm52zdsM4WoBstU');
+  Stripe.setPublishableKey('pk_test_HQ9g8Srh4U1JvdJ6qRXNPVwm');
+
 
   $scope.stripeToken = {
     number: '4242424242424242',

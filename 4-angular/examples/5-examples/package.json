@@ -1,4 +1,4 @@
-{
+	{
   "devDependencies": {
     "karma": "0.12.16",
     "karma-chai": "0.1.0",
