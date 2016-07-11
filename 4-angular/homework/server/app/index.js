@@ -5,16 +5,31 @@ require('./models')(wagner);
 require('./dependencies')(wagner);
 
 var app = express();
+var router = express.Router()
 
-var isProduction = process.env.NODE_ENV === 'production';
-var port = isProduction ? process.env.PORT : 3000;
-var publicPath = path.resolve(__dirname, '/../../client/dist');
+const isDeveloping = process.env.NODE_ENV !== 'production';
+const port = isDeveloping ? 3000 : process.env.PORT;
 
 wagner.invoke(require('./auth'), { app: app });
 
 app.use('/api/v1', require('./api')(wagner));
 
-app.use( express.static(publicPath, { maxage: '2h' }) );
 
-app.listen(3000);
-console.log('Listening on port 3000!');
+  // app.listen(port, '0.0.0.0', function onStart(err) {
+  //   if (err) {
+  //     console.log(err);
+  //   }
+  //   console.info('==> 🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port);
+  // });
+
+require('./static')(app, port, isDeveloping)
+
+app.listen(port, 'localhost', function(err) {
+
+  if (err) {
+    console.log(err);
+    return;
+  }
+
+  console.log('🌎 Listening at http://localhost:'+port);
+});

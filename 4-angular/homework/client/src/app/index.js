@@ -3,8 +3,12 @@ var directives = require('./directives');
 var services = require('./services');
 var _ = require('underscore');
 
-import 'bootstrap/dist/css/bootstrap.css';
+//import 'bootstrap/dist/css/bootstrap.css';
 import '../css/app.css';
+
+import angular from 'angular';
+import ngRoute from 'angular-route';
+import 'angular-stripe';
 
 var components = angular.module('mean-retail.components', ['ng']);
 
