@@ -10,10 +10,14 @@ var autoprefixer = require('autoprefixer');
 var csswring = require('csswring');
 
 module.exports = {
-  entry: {
-    vendor: path.join(__dirname, 'client/src/vendor'),
-    app: path.join(__dirname, 'client/src/app')
-  },
+  // entry: {
+  //   vendor: path.join(__dirname, 'client/src/vendor'),
+  //   app: path.join(__dirname, 'client/src/app')
+  // },
+  entry : [
+    path.join(__dirname, 'client/src/vendor'),
+    path.join(__dirname, 'client/src/app')
+  ],
   output: {
     path: path.join(__dirname, '/public/'),
     filename: '[name]-[hash].min.js',

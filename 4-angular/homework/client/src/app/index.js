@@ -10,6 +10,8 @@ import angular from 'angular';
 import ngRoute from 'angular-route';
 import 'angular-stripe';
 
+console.log("__app/index...");
+
 var components = angular.module('mean-retail.components', ['ng']);
 
 _.each(controllers, function(controller, name) {
@@ -26,10 +28,13 @@ _.each(services, function(factory, name) {
 
 var app = angular.module('mean-retail', ['mean-retail.components', 'ngRoute']);
 
+console.log("ecooo");
+
+
 app.config(function($routeProvider) {
   $routeProvider.
     when('/category/:category', {
-      templateUrl: '/B-examples/templates/category_view.html'
+      templateUrl: '../templates/category_view.html'
     }).
     when('/checkout', {
       template: '<checkout></checkout>'
