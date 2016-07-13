@@ -1,6 +1,7 @@
 var status = require('http-status');
 
-exports.$user = function($http) {
+function userService ($http) {
+
   var s = {};
 
   s.loadUser = function() {
@@ -22,3 +23,7 @@ exports.$user = function($http) {
 
   return s;
 };
+
+userService.$inject = [ '$http' ];
+
+export default userService;

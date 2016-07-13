@@ -17,6 +17,9 @@ function setupStatic( app, port, development ) {
   const publicFolderPath = __dirname + '/../../public';
   const indexPath =  '../../public/index.html';
 
+  console.log(config.output.publicPath);
+  console.log(publicFolderPath);
+
   if (development) {
     const compiler = webpack(config);
     const middleware = webpackMiddleware(compiler, {
@@ -35,7 +38,9 @@ function setupStatic( app, port, development ) {
     app.use(middleware);
     app.use(webpackHotMiddleware(compiler));
     app.get('*', function response(req, res) {
-      res.write(middleware.fileSystem.readFileSync(path.join(__dirname, indexPath )));
+      console.log ("responding w/ " + path.join(__dirname, indexPath ))
+      res.write( middleware.fileSystem.readFileSync(path.join(__dirname, indexPath )) );
+      console.log("terminamos conexion!")
       res.end();
     });
   }

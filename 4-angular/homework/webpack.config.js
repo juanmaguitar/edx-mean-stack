@@ -11,9 +11,12 @@ var csswring = require('csswring');
 module.exports = {
   devtool: 'eval-source-map',
   entry: [
-    'webpack-hot-middleware/client?reload=true',
-    path.join(__dirname, 'client/src/vendor'),
-    path.join(__dirname, 'client/src/app')
+    // Webpack comes with client code to check & reload modules
+    'webpack/hot/dev-server',
+    // We need to add our own code to receive module change notifications
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+    path.join(__dirname, 'client/vendor'),
+    path.join(__dirname, 'client/app')
   ],
   output: {
     path: path.join(__dirname, '/public/'),
@@ -22,7 +25,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'client/src/templates/index.tpl.html',
+      template: 'client/templates/index.tpl.html',
       inject: 'body',
       filename: 'index.html'
     }),
@@ -57,6 +60,10 @@ module.exports = {
     {
       test: /\.less$/,
       loader: 'style!css!postcss!less'
+    },
+    {
+      test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
+      loader: 'url?limit=100000&name=[name].[ext]'
     }
     ]
   }

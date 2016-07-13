@@ -1,77 +1,36 @@
-# Code Exercise
+# webpack-express-boilerplate
 
-In this part, you set up several REST API endpoints:
+A boilerplate for running a Webpack workflow in Node express based on https://github.com/christianalfoni/webpack-express-boilerplate
 
-* `GET /category/id/:id`
-* `GET /category/parent/:id`
-* `GET /product/id/:id`
-* `GET /product/category/:id`
-* `PUT /me/cart`
-* `GET /me`
-* `POST /checkout`
-* `GET /product/text/:query`
+Please read the following article: [The ultimate Webpack setup](http://www.christianalfoni.com/articles/2015_04_19_The-ultimate-webpack-setup) to know more about this boilerplate.
 
-Which depend on 5 services:
+## Install and Running
 
-* Category
-* Product
-* User
-* Stripe
-* fx
+`git clone https://github.com/juanmaguitar/webpack-express-boilerplate.git`
 
-The configuration for these services was defined using environment variables.
-Specifically, there are 4 environment variables that you had to set to make
-this API work correctly: `FACEBOOK_CLIENT_ID`, `FACEBOOK_CLIENT_SECRET`,
-`STRIPE_API_KEY`, and `OPEN_EXCHANGE_RATES_KEY`. While environment variables are
-good for one-off examples, having to set 4 environment variables is cumbersome
-for development. The purpose of this exercise is to create a new `config`
-service that loads these credentials from a single file when the server starts.
+1. cd webpack-express-boilerplate
+2. npm install
+3. npm run server
+4. navigate to http://localhost:3000 in your browser of choice.
 
-## Homework 3.4
+## Tasks
 
-The first step is to make sure you have all 4 of these keys. This step is
-necessary to run a fully-functional server for the AngularJS and Ionic framework
-parts of this course.
+### `npm start`
 
-In the `code` directory, open up the `config.json` file. You should see the
-following code:
+Launch server in production mode (serving static files at public)
 
-```javascript
-{
-  "facebookClientId": "TODO",
-  "facebookClientSecret": "TODO",
-  "stripeKey": "TODO",
-  "openExchangeRatesKey": "TODO"
-}
-```
+### `npm run server`
 
-As you might expect, the `facebookClientId`, `facebookClientSecret`,
-`stripeKey`, and `openExchangeRatesKey` keys correspond to the
-`FACEBOOK_CLIENT_ID`, `FACEBOOK_CLIENT_SECRET`, `STRIPE_API_KEY`, and
-`OPEN_EXCHANGE_RATES_KEY` environment variables, respectively. Replace the
-"TODO" strings with strings representing the credentials for your Facebook app,
-your Stripe API key, and your Open Exchange Rates key. Once you have done this,
-run `npm run check-credentials`. If you have entered keys successfully,
-`npm run check-credentials` will output a short phrase.
-Please enter that phrase in your browser to validate
-that you have successfully completed this exercise.
+Launch server in development mode (serving hot files from webpack web-server proxied)
 
-## Homework 3.5
+### `npm run build`
 
-There are 3 places where you access environment variables:
+Create minified version of client app at `public` folder ready to be served 
 
-* `auth.js` and the `setupAuth()` function, where you get the
-Facebook environment variables.
-* `dependencies.js`, where you get the Stripe key.
-* `fx.js`, where you get the Open Exchange Rates key.
+## Overview
 
-You need to modify each of these to use the new `Config` service that's defined
-in `dependencies.js` and registered in `dependencies.js`. The
-`Config` service simply reads the `config.json` file in the assessment's top
-level directory. You will also have to fill out `config.json` with your
-Facebook app keys, Stripe key, and Open Exchange Rates key.
+### Babel and Linting
+Both Node server and frontend code runs with Babel. And all of it is linted. With atom you install the `linter` package, then `linter-eslint` and `linter-jscs`. You are covered. Also run `npm run eslint` or `npm run jscs` to verify all files. I would recommend installing `language-babel` package too for syntax highlighting
 
-Once you have successfully entered your keys into `config.json` and modified
-the above 3 code locations to use the `Config` service, `npm run watch` will
-output a short phrase. Please enter that phrase in your browser to validate
-that you have successfully completed this exercise.
+### Beautify
+With a beautify package installed in your editor it will also do that

@@ -10,13 +10,10 @@ var autoprefixer = require('autoprefixer');
 var csswring = require('csswring');
 
 module.exports = {
-  // entry: {
-  //   vendor: path.join(__dirname, 'client/src/vendor'),
-  //   app: path.join(__dirname, 'client/src/app')
-  // },
-  entry : [
-    path.join(__dirname, 'client/src/vendor'),
-    path.join(__dirname, 'client/src/app')
+  devtool: 'source-map',
+  entry: [
+    path.join(__dirname, 'client/vendor'),
+    path.join(__dirname, 'client/app')
   ],
   output: {
     path: path.join(__dirname, '/public/'),
@@ -26,16 +23,19 @@ module.exports = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new HtmlWebpackPlugin({
-      template: 'client/src/templates/index.tpl.html',
+      template: 'client/templates/index.tpl.html',
       inject: 'body',
       filename: 'index.html'
     }),
+    // new webpack.optimize.CommonsChunkPlugin('vendor', '[name]-[hash].js'),
     new ExtractTextPlugin('[name]-[hash].min.css'),
     new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false,
-        screw_ie8: true
-      }
+      minimize: true,
+      sourceMap: true,
+      compress: {
+        drop_console: true
+      },
+      mangle: false
     }),
     new StatsPlugin('webpack.stats.json', {
       source: false,
@@ -47,27 +47,28 @@ module.exports = {
   ],
   module: {
     loaders: [{
-        test: /\.js?$/,
-        exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          "presets": ["es2015"]
-        }
-      }, {
-        test: /\.json?$/,
-        loader: 'json'
-      }, {
-        test: /\.html$/,
-        loader: 'html-loader'
-      },
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract('css?sourceMap!postcss-loader?sourceMap')
-      }, {
-        test: /\.less$/,
-        loader: ExtractTextPlugin.extract('css?sourceMap!postcss-loader?sourceMap!less?sourceMap')
+      test: /\.js?$/,
+      exclude: /node_modules/,
+      loader: 'babel',
+      query: {
+        "presets": ["es2015"]
       }
-    ]
+    }, {
+      test: /\.json?$/,
+      loader: 'json'
+    }, {
+      test: /\.html$/,
+      loader: 'html-loader'
+    }, {
+      test: /\.css$/,
+      loader: ExtractTextPlugin.extract('css?sourceMap!postcss-loader?sourceMap')
+    }, {
+      test: /\.less$/,
+      loader: ExtractTextPlugin.extract('css?sourceMap!postcss-loader?sourceMap!less?sourceMap')
+    }, {
+      test: /\.(eot|woff|woff2|ttf|svg|png|jpe?g|gif)(\?\S*)?$/,
+      loader: 'url?limit=100000&name=[name].[ext]'
+    }]
   },
   postcss: [autoprefixer, csswring]
 };

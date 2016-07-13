@@ -1,33 +1,31 @@
 {
-  "name": "edx-mean-stack-angular",
-  "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "server:start": "babel-node --presets es2015 server/app",
-    "server:nodemon:start": "nodemon --exec npm run server:start",
-    "server:nodemon:test": "nodemon --exec npm server/test",
-    "server:test": "mocha --compilers js:babel-register server/test",
-    "server:check-credentials": "mocha server/test/part1.js",
-    "server:watch": "gulp watch",
-    "client:dist:fonts": "mv dist/glyphicons* dist/css",
-    "client:dist": "git add dist && git commit -am \"dist $(date +'%h-%m %s')\" &&  git push",
-    "client:gh-pages": "git subtree push --prefix dist origin gh-pages",
-    "client:deploy": "npm run client:build && npm run client:dist && npm run client:gh-pages",
-    "client:build": "rimraf dist && webpack --config ./webpack.production.config.js --bail --progress --profile && npm run client:dist:fonts",
-    "client:dev-server": "webpack-dev-server --history-api-fallback --inline --progress",
-    "client:start": "npm run client:dev-server",
-    "client:watch": "npm run client:watch:dev",
-    "client:watch:dev": "webpack --watch --progress --profile --colors --display-error-details --display-cached",
-    "client:watch:dev:hmr": "npm run client:watch:dev -- --hot",
-    "client:watch:prod": "webpack --watch --config webpack.prod.config.js --progress --profile --colors --display-error-details --display-cached",
-
-    "start": "NODE_ENV=production PORT=3000 node server/app",
-    "server": "node server/app",
-    "build": "rimraf public/* && cross-env NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors",
-    "test": "karma start"
+  "name": "webpack-express-boilerplate",
+  "version": "0.1.0",
+  "description": "A boilerplate for running a Webpack workflow in Node express",
+  "main": "server/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/christianalfoni/webpack-express-boilerplate.git"
   },
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "express",
+    "webpack",
+    "node"
+  ],
+  "author": "Christian Alfoni",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/christianalfoni/webpack-express-boilerplate/issues"
+  },
+  "homepage": "https://github.com/christianalfoni/webpack-express-boilerplate",
+  "scripts": {
+    "test": "",
+    "start": "NODE_ENV=production PORT=3000 babel-node --presets es2015 server",
+    "server": "node server",
+    "build": "rimraf public/* && cross-env NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors --display-error-details",
+    "eslint": "eslint .",
+    "jscs": "jscs ."
+  },
   "devDependencies": {
     "autoprefixer": "^6.3.6",
     "babel-core": "^6.7.5",
@@ -63,21 +61,18 @@
     "style-loader": "^0.13.1",
     "superagent": "1.2.0",
     "url-loader": "^0.5.7",
-    "webpack": "^1.12.14",
+    "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.2.0",
-    "webpack-dev-server": "^1.14.1",
-    "webpack-hot-middleware": "^1.2.0"
+    "webpack-hot-middleware": "^1.2.0",
+    "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "http-status": "0.1.8",
-    "underscore": "1.5.2",
     "angular": "^1.5.3",
     "angular-animate": "^1.5.7",
     "angular-resource": "^1.5.3",
     "angular-route": "^1.5.6",
     "angular-stripe": "^4.2.12",
     "angular-ui-router": "^1.0.0-alpha.4",
-    "bootstrap": "^3.3.6",
     "babel-cli": "^6.0.0",
     "babel-core": "6.1.18",
     "babel-polyfill": "^6.3.14",
@@ -85,13 +80,17 @@
     "babel-require": "^1.0.1",
     "bluebird": "^3.4.1",
     "body-parser": "1.12.4",
+    "bootstrap": "^3.3.6",
     "dotenv": "^2.0.0",
     "express": "4.12.3",
     "express-session": "1.11.2",
+    "font-awesome": "^4.6.3",
+    "http-status": "0.1.8",
     "mongoose": "4.0.3",
     "passport": "0.2.2",
     "passport-facebook": "2.0.0",
     "stripe": "3.3.4",
+    "underscore": "1.5.2",
     "wagner-core": "0.1.0"
   }
 }

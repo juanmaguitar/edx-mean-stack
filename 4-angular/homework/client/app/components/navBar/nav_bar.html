@@ -1,7 +1,7 @@
 <div class="nav-bar">
   <div class="nav-bar-contents">
     <div class="logo">
-      <img src="/mean-retail-logo.png" />
+      <img src="../../../img/mean-retail-logo.png" />
     </div>
     <div class="title">
       MEAN Retail
@@ -13,10 +13,10 @@
         </a>
       </div>
       <div class="user" ng-show="user.user">
-        <img ng-src="{{user.user.profile.picture}}" />
+        <img ng-src="{{ user.user.profile.picture }}" />
       </div>
       <div class="login" ng-show="!user.user">
-        <a href="/auth/facebook?redirect=%2FB-examples">
+        <a href="/auth/facebook?redirect=%2F">
           <img src="//i.stack.imgur.com/LKMP7.png">
         </a>
       </div>
